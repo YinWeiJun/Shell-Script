@@ -19,6 +19,8 @@ Description
         
 Answer
 ======
+    # ------------------------------------
+    
     ncol=`head -n1 file.txt | wc -w`
 
     for i in `seq 1 $ncol`
@@ -26,5 +28,27 @@ Answer
         echo `cut -d' ' -f$i file.txt`
     done
     
+    # ------------------------------------
     
+    awk '
+    {
+        for (i = 1; i <= NF; i++) {
+            if(NR == 1) {
+                s[i] = $i;
+            } else {
+                s[i] = s[i] " " $i;
+            }
+        }
+    }
+    END {
+        for (i = 1; s[i] != ""; i++) {
+            print s[i];
+        }
+    }' file.txt
     
+    # ------------------------------------
+    
+
+
+
+
